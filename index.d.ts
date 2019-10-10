@@ -14,4 +14,4 @@ interface IImageProps extends ImageProps {
   onSize?: (onSizeParams: IOnSizeParams) => void,
 }
 
-export default class Image extends Component<IImageProps> {}
+export default class ScalableImage extends Component<IImageProps> {}
