@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 import {
     Image,
     TouchableOpacity,
-    ImageBackground
+    ImageBackground,
+    Dimensions
 } from 'react-native';
 
 const resolveAssetSource = Image.resolveAssetSource;
@@ -68,8 +69,28 @@ const ScalableImage = props => {
     };
 
     const adjustSize = (sourceWidth, sourceHeight, localProps) => {
-        const { width, height } = localProps;
+        let { width, height } = localProps;
 
+        if (typeof width==="undefined") {
+            if (typeof localProps.style !== "undefined" && typeof localProps.style.width !=="undefined") {
+                width = localProps.style.width;
+            }
+        }
+
+        if (typeof height==="undefined") {
+            if (typeof localProps.style !== "undefined" && typeof localProps.style.height !=="undefined") {
+                height = localProps.style.height;
+            }
+        }
+
+        if (typeof width==="string" && width.indexOf('%')>0) {
+            let perc = width.replace('%','');
+            width = (Dimensions.get('window').width * (perc / 100));
+        }
+
+
+        alert(width);
+        console.log(localProps);
         let ratio = 1;
 
         if (width && height) {
